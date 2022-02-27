@@ -23,6 +23,7 @@ Feature: Contacts page
       | System     |
 
 
+
   Scenario: Menu Options Sales Manager
     Given the user logged in as "sales manager"
     Then the user should see following options
@@ -59,3 +60,29 @@ Feature: Contacts page
       | user           | firstName | lastName  |
       | user10         | Brenden   | Schneider |
       | storemanager85 | Stephan   | Haley     |
+
+  @db
+  Scenario: Contacts test with email
+    Given the user logged in as "sales manager"
+    And the user navigates to "Customers" "Contacts"
+    When the user clicks the "ranthony@gmail.com" from contacts
+    Then the information should be same with database
+
+  @db @wip
+  Scenario: Contacts test with email
+    Given the user logged in as "sales manager"
+    And the user navigates to "Customers" "Contacts"
+    When the user clicks the "oscar@gmail.com" from contacts
+    Then the information for "oscar@gmail.com" should be same with database
+
+
+  Scenario Outline: Contacts Test
+    Given the user logged in as "sales manager"
+    And the user navigates to "Customers" "Contacts"
+    When the user clicks the "<email>" from contacts
+    Then the information for "<email>" should be same with database
+
+    Examples:
+      |email|
+      |ranthony@gmail.com|
+      |oscar@gmail.com |
